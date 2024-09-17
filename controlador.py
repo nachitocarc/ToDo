@@ -1,4 +1,3 @@
-# controlador.py
 from PySide6.QtWidgets import QWidget, QMessageBox
 from vista import UiListaDeTareas
 from modelo import GestorDeTareas
