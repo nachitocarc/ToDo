@@ -1,4 +1,3 @@
-# vista.py
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtWidgets import QGridLayout, QPushButton, QLabel, QLineEdit, QListWidget, QSpacerItem, QSizePolicy
 
