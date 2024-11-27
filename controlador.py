@@ -11,7 +11,6 @@ class ListaDeTareasApp(QWidget):
 
         self.gestor_tareas = GestorDeTareas()
 
-        # Conexiones
         self.ui.boton_agregar.clicked.connect(self.agregar_tarea)
         self.ui.boton_eliminar.clicked.connect(self.eliminar_tarea)
         self.ui.boton_completar.clicked.connect(self.marcar_completada)
@@ -36,7 +35,7 @@ class ListaDeTareasApp(QWidget):
         self.ui.eliminar_tarea_seleccionada()
 
     def marcar_completada(self):
-        tareas_seleccionadas = self.ui.obtener_tareas()
+        tareas_seleccionadas = self.ui.obtener_tarea_seleccionada()
         if not tareas_seleccionadas:
             QMessageBox.warning(self, "Advertencia", "Selecciona una tarea para marcar como completada.")
             return
@@ -44,3 +43,4 @@ class ListaDeTareasApp(QWidget):
         for tarea_nombre in tareas_seleccionadas:
             self.ui.marcar_tarea_completada(tarea_nombre)
             self.gestor_tareas.marcar_completada(tarea_nombre)
+
