@@ -11,43 +11,36 @@ class ListaDeTareasApp(QWidget):
 
         self.gestor_tareas = GestorDeTareas()
 
-        self.ui._boton_agregar.clicked.connect(self.agregar_tarea)
-        self.ui._boton_eliminar.clicked.connect(self.eliminar_tarea)
-        self.ui._boton_completar.clicked.connect(self.marcar_completada)
+        # Conexiones
+        self.ui.boton_agregar.clicked.connect(self.agregar_tarea)
+        self.ui.boton_eliminar.clicked.connect(self.eliminar_tarea)
+        self.ui.boton_completar.clicked.connect(self.marcar_completada)
 
     def agregar_tarea(self):
-        tarea_nombre = self.ui._line_edit.text()
+        tarea_nombre = self.ui.obtener_texto_tarea()
         if tarea_nombre:
             self.gestor_tareas.agregar_tarea(tarea_nombre)
-            self.ui._list_widget.addItem(tarea_nombre)
-            self.ui._line_edit.clear()
+            self.ui.agregar_tarea_a_lista(tarea_nombre)
+            self.ui.limpiar_entrada()
         else:
             QMessageBox.warning(self, "Advertencia", "Ingresa una tarea.")
 
     def eliminar_tarea(self):
-        selected_items = self.ui._list_widget.selectedItems()
-        if not selected_items:
+        tareas_seleccionadas = self.ui.obtener_tarea_seleccionada()
+        if not tareas_seleccionadas:
             QMessageBox.warning(self, "Advertencia", "Selecciona una tarea si queres eliminar")
             return
 
-        for item in selected_items:
-            tarea_nombre = item.text()
+        for tarea_nombre in tareas_seleccionadas:
             self.gestor_tareas.eliminar_tarea(tarea_nombre)
-            self.ui._list_widget.takeItem(self.ui._list_widget.row(item))
+        self.ui.eliminar_tarea_seleccionada()
 
     def marcar_completada(self):
-        selected_items = self.ui._list_widget.selectedItems()
-        if not selected_items:
+        tareas_seleccionadas = self.ui.obtener_tareas()
+        if not tareas_seleccionadas:
             QMessageBox.warning(self, "Advertencia", "Selecciona una tarea para marcar como completada.")
             return
 
-        for item in selected_items:
-            font = item.font()
-            font.setStrikeOut(True)
-            item.setFont(font)
-
-            for tarea in self.gestor_tareas.obtener_tareas():
-                if tarea.nombre == item.text():
-                    tarea.marcar_completada()
-
-
+        for tarea_nombre in tareas_seleccionadas:
+            self.ui.marcar_tarea_completada(tarea_nombre)
+            self.gestor_tareas.marcar_completada(tarea_nombre)
