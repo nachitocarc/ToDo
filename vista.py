@@ -49,7 +49,6 @@ class UiListaDeTareas(object):
         self._list_widget.setStyleSheet("background-color: #333333; color: #ffffff;")
         self._grid_layout.addWidget(self._list_widget, 2, 0, 1, 3)
 
-    # Métodos encapsulados para interactuar con la vista
     def obtener_texto_tarea(self):
         return self._line_edit.text()
 

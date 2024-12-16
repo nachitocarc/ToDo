@@ -11,11 +11,11 @@ class ListaDeTareasApp(QWidget):
 
         self.gestor_tareas = GestorDeTareas()
 
-        self.ui.boton_agregar.clicked.connect(self.agregar_tarea)
-        self.ui.boton_eliminar.clicked.connect(self.eliminar_tarea)
-        self.ui.boton_completar.clicked.connect(self.marcar_completada)
+        self.ui.boton_agregar.clicked.connect(self.__agregar_tarea)
+        self.ui.boton_eliminar.clicked.connect(self.__eliminar_tarea)
+        self.ui.boton_completar.clicked.connect(self.__marcar_completada)
 
-    def agregar_tarea(self):
+    def __agregar_tarea(self):
         tarea_nombre = self.ui.obtener_texto_tarea()
         if tarea_nombre:
             self.gestor_tareas.agregar_tarea(tarea_nombre)
@@ -24,7 +24,7 @@ class ListaDeTareasApp(QWidget):
         else:
             QMessageBox.warning(self, "Advertencia", "Ingresa una tarea.")
 
-    def eliminar_tarea(self):
+    def __eliminar_tarea(self):
         tareas_seleccionadas = self.ui.obtener_tarea_seleccionada()
         if not tareas_seleccionadas:
             QMessageBox.warning(self, "Advertencia", "Selecciona una tarea si queres eliminar")
@@ -34,7 +34,7 @@ class ListaDeTareasApp(QWidget):
             self.gestor_tareas.eliminar_tarea(tarea_nombre)
         self.ui.eliminar_tarea_seleccionada()
 
-    def marcar_completada(self):
+    def __marcar_completada(self):
         tareas_seleccionadas = self.ui.obtener_tarea_seleccionada()
         if not tareas_seleccionadas:
             QMessageBox.warning(self, "Advertencia", "Selecciona una tarea para marcar como completada.")
