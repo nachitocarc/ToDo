@@ -1,5 +1,6 @@
-from PySide6.QtWidgets import QGridLayout, QPushButton, QLabel, QLineEdit, QListWidget, QSpacerItem, QSizePolicy
-
+from PySide6.QtWidgets import QGridLayout, QPushButton, QLabel, QLineEdit, QListWidget, QSpacerItem, QSizePolicy, \
+    QListWidgetItem
+from PySide6.QtGui import QFont
 
 class UiListaDeTareas(object):
     def ventana_ui(self, lista_de_tareas):
@@ -55,20 +56,17 @@ class UiListaDeTareas(object):
     def limpiar_entrada(self):
         self._line_edit.clear()
 
-    def agregar_tarea_a_lista(self, tarea):
-        self._list_widget.addItem(tarea)
-
-    def eliminar_tarea_seleccionada(self):
-        for item in self._list_widget.selectedItems():
-            self._list_widget.takeItem(self._list_widget.row(item))
-
-    def obtener_tarea_seleccionada(self):
-        return [item.text() for item in self._list_widget.selectedItems()]
-
-    def marcar_tarea_completada(self, tarea):
-        for index in range(self._list_widget.count()):
-            item = self._list_widget.item(index)
-            if item.text() == tarea:
-                font = item.font()
+    def actualizar_lista_tareas(self, tareas):
+        """Recibe una lista de diccionarios y actualiza la vista."""
+        self._list_widget.clear()
+        for tarea in tareas:
+            texto_tarea = tarea["nombre"]
+            item = QListWidgetItem(texto_tarea)
+            if tarea["completada"]:
+                font = QFont()
                 font.setStrikeOut(True)
                 item.setFont(font)
+            self._list_widget.addItem(item)
+
+    def obtener_tareas_seleccionadas(self):
+        return [item.text() for item in self._list_widget.selectedItems()]

@@ -9,24 +9,28 @@ class Tarea:
     def obtener_nombre(self):
         return self.__nombre
 
+    def esta_completada(self):
+        return self.__completada
+
 
 class GestorDeTareas:
     def __init__(self):
         self.__tareas = []
 
     def agregar_tarea(self, nombre):
-        tarea = Tarea(nombre)
-        self.__tareas.append(tarea)
+        nueva_tarea = Tarea(nombre)
+        self.__tareas.append(nueva_tarea)
 
     def eliminar_tarea(self, nombre):
-        tarea = next((t for t in self.__tareas if t.obtener_nombre() == nombre), None)
-        if tarea:
-            self.__tareas.remove(tarea)
-
-    def obtener_tareas(self):
-        return self.__tareas
+        self.__tareas = [tarea for tarea in self.__tareas if tarea.obtener_nombre() != nombre]
 
     def marcar_completada(self, nombre):
-        tarea = next((t for t in self.__tareas if t.obtener_nombre() == nombre), None)
-        if tarea:
-            tarea.marcar_completada()
+        for tarea in self.__tareas:
+            if tarea.obtener_nombre() == nombre:
+                tarea.marcar_completada()
+                break
+
+    def obtener_tareas(self):
+        return [
+            {"nombre": tarea.obtener_nombre(), "completada": tarea.esta_completada()}
+            for tarea in self.__tareas]
