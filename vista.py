@@ -57,7 +57,6 @@ class UiListaDeTareas(object):
         self._line_edit.clear()
 
     def actualizar_lista_tareas(self, tareas):
-        """Recibe una lista de diccionarios y actualiza la vista."""
         self._list_widget.clear()
         for tarea in tareas:
             texto_tarea = tarea["nombre"]
