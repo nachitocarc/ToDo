@@ -4,13 +4,13 @@ from modelo import GestorDeTareas
 
 
 class ListaDeTareasApp(QWidget):
+
+
     def __init__(self):
         super().__init__()
         self.ui = UiListaDeTareas()
         self.ui.ventana_ui(self)
-
         self.gestor_tareas = GestorDeTareas()
-
         self.ui.boton_agregar.clicked.connect(self.__agregar_tarea)
         self.ui.boton_eliminar.clicked.connect(self.__eliminar_tarea)
         self.ui.boton_completar.clicked.connect(self.__marcar_completada)
